@@ -20,6 +20,19 @@ class WorkflowDatabase:
         # Use environment variable if no path provided
         if db_path is None:
             db_path = os.environ.get("WORKFLOW_DB_PATH", "workflows.db")
+        
+        # For Vercel serverless, use /tmp for writable database
+        if os.environ.get("VERCEL"):
+            # Check if pre-built database exists in project
+            if os.path.exists("database/workflows.db"):
+                import shutil
+                tmp_db_path = "/tmp/workflows.db"
+                if not os.path.exists(tmp_db_path):
+                    shutil.copy("database/workflows.db", tmp_db_path)
+                db_path = tmp_db_path
+            else:
+                db_path = "/tmp/workflows.db"
+        
         self.db_path = db_path
         self.workflows_dir = "workflows"
         self.init_database()
