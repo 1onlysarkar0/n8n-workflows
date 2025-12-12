@@ -85,7 +85,7 @@ def setup_database(force_reindex: bool = False, skip_index: bool = False) -> str
     return db_path
 
 
-def start_server(host: str = "127.0.0.1", port: int = 8000, reload: bool = False):
+def start_server(host: str = "0.0.0.0", port: int = 5000, reload: bool = False):
     """Start the FastAPI server."""
     print(f"🌐 Starting server at http://{host}:{port}")
     print(f"📊 API Documentation: http://{host}:{port}/docs")
@@ -127,10 +127,10 @@ Examples:
     )
 
     parser.add_argument(
-        "--host", default="127.0.0.1", help="Host to bind to (default: 127.0.0.1)"
+        "--host", default="0.0.0.0", help="Host to bind to (default: 0.0.0.0)"
     )
     parser.add_argument(
-        "--port", type=int, default=8000, help="Port to bind to (default: 8000)"
+        "--port", type=int, default=5000, help="Port to bind to (default: 5000)"
     )
     parser.add_argument(
         "--reindex", action="store_true", help="Force database reindexing"
