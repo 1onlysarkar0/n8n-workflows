@@ -36,20 +36,10 @@ MAX_REQUESTS_PER_MINUTE = 60  # Configure as needed
 # Add middleware for performance
 app.add_middleware(GZipMiddleware, minimum_size=1000)
 
-# Security: Configure CORS properly - restrict origins in production
-# For local development, you can use localhost
-# For production, replace with your actual domain
-ALLOWED_ORIGINS = [
-    "http://localhost:3000",
-    "http://localhost:8000",
-    "http://localhost:8080",
-    "https://zie619.github.io",  # GitHub Pages
-    "https://n8n-workflows-1-xxgm.onrender.com",  # Community deployment
-]
-
+# Security: Configure CORS properly - allow all origins for Replit proxy
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=ALLOWED_ORIGINS,  # Security fix: Restrict origins
+    allow_origins=["*"],  # Allow all origins for Replit proxy
     allow_credentials=True,
     allow_methods=["GET", "POST"],  # Security fix: Only allow needed methods
     allow_headers=["Content-Type", "Authorization"],  # Security fix: Restrict headers
